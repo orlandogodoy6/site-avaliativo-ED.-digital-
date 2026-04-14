@@ -1,0 +1,114 @@
+// --- GESTÃO DE DADOS (DATABASE) ---
+const perksData = [
+    { name: "Juggernog", effect: "Aumenta sua saúde para aguentar mais tapas.", color: "#ff0000" },
+    { name: "Speed Cola", effect: "Recarregue armas e use barreiras 50% mais rápido.", color: "#00ff00" },
+    { name: "Double Tap II", effect: "Aumenta a cadência de tiro e dobra o dano por projétil.", color: "#ffa500" }
+];
+
+const mapsData = [
+    { name: "Nacht der Untoten", description: "Onde tudo começou. Um bunker pequeno e claustrofóbico." },
+    { name: "Kino der Toten", description: "O cinema dos mortos. Local ideal para fazer 'train' de zombies." },
+    { name: "Origins", description: "Campo de batalha da 1ª Guerra com robôs gigantes e cajados elementares." }
+];
+
+const weaponsData = [
+    { name: "Ray Gun", type: "Clássica", desc: "A arma icônica que emite raios de energia devastadores." },
+    { name: "Thundergun", type: "Canhão de Ar", desc: "Lança os zombies para trás com uma força de ar comprimido." },
+    { name: "Wunderwaffe DG-2", type: "Elétrica", desc: "Cria uma corrente elétrica que elimina até 10 inimigos por vez." }
+];
+
+// --- RENDERIZAÇÃO DINÂMICA ---
+function init() {
+    // Render Perks
+    const perksGrid = document.getElementById('perks-grid');
+    perksGrid.innerHTML = perksData.map(perk => `
+        <article class="perk-card">
+            <h3>${perk.name}</h3>
+            <p>${perk.effect}</p>
+        </article>
+    `).join('');
+
+    // Render Accordion
+    const accordion = document.getElementById('maps-accordion');
+    accordion.innerHTML = mapsData.map((map, index) => `
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(${index})" aria-expanded="false">
+                ${map.name}
+            </button>
+            <div class="accordion-body" id="body-${index}">
+                <p>${map.description}</p>
+            </div>
+        </div>
+    `).join('');
+
+    // Render Carousel
+    const carousel = document.getElementById('weapon-carousel');
+    carousel.innerHTML = weaponsData.map(w => `
+        <div class="carousel-item">
+            <h3>${w.name}</h3>
+            <small>${w.type}</small>
+            <p>${w.desc}</p>
+        </div>
+    `).join('');
+}
+
+// --- ACESSIBILIDADE & UTILITÁRIOS ---
+let baseSize = 16;
+function changeFontSize(action) {
+    baseSize = (action === 'increase') ? baseSize + 2 : baseSize - 2;
+    document.documentElement.style.setProperty('--font-base', baseSize + 'px');
+}
+
+function toggleContrast() {
+    document.body.classList.toggle('high-contrast');
+}
+
+// --- LÓGICA DE COMPONENTES ---
+function toggleAccordion(index) {
+    const bodies = document.querySelectorAll('.accordion-body');
+    const headers = document.querySelectorAll('.accordion-header');
+    
+    const isVisible = bodies[index].style.display === 'block';
+    
+    // Fecha todos
+    bodies.forEach(b => b.style.display = 'none');
+    headers.forEach(h => h.setAttribute('aria-expanded', 'false'));
+
+    // Abre o selecionado
+    if (!isVisible) {
+        bodies[index].style.display = 'block';
+        headers[index].setAttribute('aria-expanded', 'true');
+    }
+}
+
+// --- CARROSSEL ---
+let currentSlide = 0;
+document.getElementById('nextBtn').addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % weaponsData.length;
+    updateCarousel();
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + weaponsData.length) % weaponsData.length;
+    updateCarousel();
+});
+
+function updateCarousel() {
+    const track = document.getElementById('weapon-carousel');
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+// --- SCROLL REVEAL (INTERSECTION OBSERVER) ---
+const observerOptions = { threshold: 0.1 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
