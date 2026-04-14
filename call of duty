@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cod Zombies | Guia de Sobrevivência</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar" role="navigation" aria-label="Menu Principal">
+            <div class="logo">COD<span>ZOMBIES</span></div>
+            <div class="a11y-controls">
+                <button onclick="changeFontSize('increase')" aria-label="Aumentar texto">A+</button>
+                <button onclick="changeFontSize('decrease')" aria-label="Diminuir texto">A-</button>
+                <button onclick="toggleContrast()" aria-label="Modo de Alto Contraste">🌓</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="reveal">
+            <h1>Prepare-se para o Round Infinito</h1>
+            <p>Domine os mapas, encontre os Easter Eggs e sobreviva à horda.</p>
+        </section>
+
+        <section id="perks" class="reveal">
+            <h2>Vantagens Essenciais (Perks)</h2>
+            <div id="perks-grid" class="grid-container" aria-live="polite">
+                </div>
+        </section>
+
+        <section id="maps" class="reveal">
+            <h2>Guia de Mapas Classificados</h2>
+            <div id="maps-accordion" class="accordion-container">
+                </div>
+        </section>
+
+        <section id="arsenal" class="reveal">
+            <h2>Wonder Weapons</h2>
+            <div class="carousel-wrapper">
+                <div id="weapon-carousel" class="carousel" role="region" aria-roledescription="carrossel">
+                    </div>
+                <div class="carousel-nav">
+                    <button id="prevBtn" aria-label="Arma anterior">❮</button>
+                    <button id="nextBtn" aria-label="Próxima arma">❯</button>
+                </div>
+            </div>
+        </section>orlandogodoy6/site-avaliativo-ED.-digital-
+￼
+ principal
+1 filial
+0 Etiquetas
+￼
+t
+Adicionar arquivo￼
+Adicionar arquivo
+￼
+Código
+Pastas e arquivosorlandogodoy6/site-avaliativo-ED.-digital-
+￼
+ principal
+1 filial
+0 Etiquetas
+￼
+t
+Adicionar arquivo￼
+Adicionar arquivo
+￼
+Código
+Pastas e arquivos
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2026 COD Zombies Fanbase. Feito para sobreviver.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
